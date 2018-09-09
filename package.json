@@ -17,6 +17,8 @@
     "axios": "^0.18.0",
     "chart.js": "^2.7.2",
     "material-design-icons-iconfont": "^3.0.3",
+    "node-cmd": "^3.0.0",
+    "request": "^2.79.0",
     "vue": "^2.5.2",
     "vue-chartjs": "^3.4.0",
     "vue-router": "^3.0.1",
