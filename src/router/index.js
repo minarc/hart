@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Vuetify from 'vuetify'
 import Search from '@/components/Search'
 import Input from '@/components/Input'
+import Today from '@/components/Today'
 
 Vue.use(Router)
 Vue.use(Vuetify)
@@ -10,11 +11,12 @@ Vue.use(Vuetify)
 export default new Router({
   routes: [{
     path: '/',
-    name: 'for Test',
     component: Search
   }, {
     path: '/input',
-    name: '',
     component: Input
+  }, {
+    path: '/today',
+    component: Today
   }]
 })
