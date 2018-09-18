@@ -1,47 +1,19 @@
 <template>
-  <v-app>
-    <v-content>
-      <v-container fluid fill-height>
-        <v-layout align-start justify-center>
-          <v-flex xs12 sm8 md4>
-            <v-toolbar dark flat color='deep-purple accent-2'>
-              <v-toolbar-title>word</v-toolbar-title>
-              <v-autocomplete
-                :loading='loading'
-                :items='items'
-                :search-input.sync='search'
-                v-model='select'
-                cache-items
-                class='mx-3'
-                flat
-                hide-no-data
-                hide-details
-                hide-selected
-                solo-inverted
-                @keyup.enter="submit(select)"
-              ></v-autocomplete>
-              <v-btn icon @click="submit(select)">
-                <v-icon>search</v-icon>
-              </v-btn>
-            </v-toolbar>
-            <component v-bind:is="chart"></component>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-content>
-  </v-app>
+  <v-toolbar dark flat color='deep-purple accent-2'>
+    <v-toolbar-title>search</v-toolbar-title>
+      <v-autocomplete :loading='loading' :items='items' :search-input.sync='search' v-model='select' cache-items class='mx-3' flat hide-no-data hide-details hide-selected solo-inverted @keyup.enter="submit(select)"></v-autocomplete>
+    <v-btn icon @click="submit(select)"><v-icon>search</v-icon></v-btn>
+  </v-toolbar>
 </template>
 
 <script>
 import axios from 'axios'
 import chart from './Chart.vue'
-import chips from './Chips.vue'
 
 export default {
   name: 'Search',
   components: {
-    'chart': chart,
-    'chips': chips
+    'chart': chart
   },
   created () {
     axios.get('/api/today').then(response => {
