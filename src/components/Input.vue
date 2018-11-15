@@ -1,17 +1,21 @@
 <template>
   <v-container fluid grid-list-lg class="deep-purple lighten-5">
-    <v-textarea counter solo v-model=text required @keyup.enter="submit()" name="input-7-1" label="예문 입력" value=text single-line :disabled=input></v-textarea>
-    <v-progress-linear :active=active color="purple" :indeterminate="true"></v-progress-linear>
-    <v-alert :value=alert color="error" icon="warning" transition="scale-transition"> {{ message }} </v-alert>
-    <v-card>
-      <v-rating v-model="rating" size=40 color="purple darken-1" dense readonly half-increments background-color="purple lighten-4" length=10></v-rating>
-      <v-card-text>
-        <div class="text-md-center">
-        <div>rating : {{rating }}</div>
-        <div>confidence : {{confidence}}</div>
-        </div>
-      </v-card-text>
-    </v-card>
+    <v-layout row wrap>
+      <v-flex>
+        <v-textarea counter solo v-model=text required @keyup.enter="submit()" hint="문장을 입력 해 보세요." label="예문 입력" value=text single-line :disabled=input></v-textarea>
+        <v-progress-linear :active=active color="purple" :indeterminate="true"></v-progress-linear>
+        <v-alert :value=alert color="error" icon="warning" transition="scale-transition"> {{ message }} </v-alert>
+        <v-card>
+          <v-rating v-model="rating" size=32 color="purple darken-1" dense readonly half-increments background-color="purple lighten-4" length=10></v-rating>
+          <v-card-text>
+            <div class="text-md-center">
+            <div>rating : {{rating }}</div>
+            <div>confidence : {{confidence}}</div>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+    </v-layout>
   </v-container>
 </template>
 

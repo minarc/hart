@@ -8,13 +8,9 @@
 
 <script>
 import axios from 'axios'
-import chart from './Chart.vue'
 
 export default {
   name: 'Search',
-  components: {
-    'chart': chart
-  },
   created () {
     axios.get('/api/today').then(response => {
       this.states = response.data
@@ -46,7 +42,6 @@ export default {
         this.component = 'chart'
       }).catch(error => {
         console.log(error)
-        this.chart = 'chart'
         this.chip = 'chips'
       })
     },

@@ -3,7 +3,7 @@
     <v-content>
       <v-container fluid fill-height class="white">
         <v-layout row wrap align-start justify-center>
-          <v-flex xs4 class="elevation-5">
+          <v-flex sm4 class="elevation-5">
             <v-tabs animated bounce infinite fixed-tabs color="deep-purple accent-4" grow dark show-arrows>
               <v-tabs-slider color="white"></v-tabs-slider>
               <v-tab><v-icon>account_box</v-icon></v-tab>
@@ -15,23 +15,7 @@
                 </v-tab-item>
                 <v-tab-item>
                   <component :is="tab2"></component>
-                  <v-container>
-                    <v-card hover>
-                      <v-layout >
-                        <v-flex xs8>
-                          <v-card-title>
-                            <div>
-                              <div class="headline">Halycon Days</div>
-                              <div>Ellie Goulding</div>
-                            </div>
-                          </v-card-title>
-                        </v-flex>
-                        <v-flex xs4>
-                          <v-img src="https://cdn.vuetifyjs.com/images/cards/halcyon.png" height="125px"></v-img>
-                        </v-flex>
-                      </v-layout>
-                    </v-card>
-                  </v-container>
+                  <component :is="cards" v-for="n in 2" :key="n"></component>
                 </v-tab-item>
                 <v-tab-item>
                   <component :is="tab3"></component>
@@ -48,6 +32,7 @@
 <script>
 import search from './Search.vue'
 import input from './Input.vue'
+import cards from './Cards.vue'
 
 export default {
   name: 'Tabs',
@@ -55,12 +40,14 @@ export default {
     return {
       tab1: '',
       tab2: '',
-      tab3: ''
+      tab3: '',
+      cards: ''
     }
   },
   created () {
     this.tab1 = input
     this.tab2 = search
+    this.cards = cards
   }
 }
 </script>
