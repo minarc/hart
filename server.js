@@ -5,8 +5,8 @@ const path = require('path')
 app = express()
 app.use(serveStatic(path.join(__dirname, 'dist')))
 
-const port = process.env.PORT || 80
+const port = process.env.PORT || 8080
 
 app.listen(port)
 
-console.log("start egloo port :: " + port)
+console.log("start hart port :: " + port)
