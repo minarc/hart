@@ -3,16 +3,28 @@
     <v-layout row wrap>
       <v-flex>
         <v-form ref="form">
-          <v-text-field v-model=text color="purple" :counter=max :rules=rules @keyup.enter="submit()" label="이곳에 문장을 입력하세요."></v-text-field>
+          <v-text-field
+            v-model="text"
+            color="purple"
+            :counter="max"
+            :rules="rules"
+            @keyup.enter="submit()"
+            label="이곳에 문장을 입력하세요."
+          ></v-text-field>
         </v-form>
-        <v-progress-linear :active=active color="purple" :indeterminate="true"></v-progress-linear>
-        <v-alert :value=alert color="error" icon="warning" transition="scale-transition"> {{ message }} </v-alert>
+        <v-progress-linear :active="active" color="purple" :indeterminate="true"></v-progress-linear>
+        <v-alert
+          :value="alert"
+          color="error"
+          icon="warning"
+          transition="scale-transition"
+        >{{ message }}</v-alert>
         <v-card>
-          <v-rating v-model="rating" size=32 color="purple darken-1" dense readonly half-increments background-color="purple lighten-4" length=10></v-rating>
+          <v-rating></v-rating>
           <v-card-text>
             <div class="text-md-center">
-            <div>rating : {{rating }}</div>
-            <div>confidence : {{confidence}}</div>
+              <div>rating : {{rating }}</div>
+              <div>confidence : {{confidence}}</div>
             </div>
           </v-card-text>
         </v-card>
@@ -41,7 +53,9 @@ export default {
     rules () {
       const rules = []
       if (this.max) {
-        const rule = v => (v || '').length <= this.max || `최대 ${this.max} 글자까지 가능합니다.`
+        const rule = v =>
+          (v || '').length <= this.max ||
+          `최대 ${this.max} 글자까지 가능합니다.`
         rules.push(rule)
       }
       return rules
@@ -49,7 +63,7 @@ export default {
   },
   watch: {
     max: 'validateField',
-    model: 'validateFiel'
+    model: 'validateField'
   },
   methods: {
     validateField () {
@@ -65,23 +79,25 @@ export default {
       this.rating = 0
 
       this.text = this.text.trim()
-      axios.get('/v1/api/fasttext?q=' + this.text).then(response => {
-        this.rating = response['data']['rating']
-        this.confidence = response['data']['confidence']
+      axios
+        .get('/v1/api/fasttext?q=' + this.text)
+        .then(response => {
+          this.rating = response['data']['rating']
+          this.confidence = response['data']['confidence']
 
-        if (this.confidence < 0.55) {
+          if (this.confidence < 0.55) {
+            this.alert = true
+            this.message = '확실하진 않습니다. 잘 모르겠어요.'
+          }
+          this.active = false
+          this.input = false
+        })
+        .catch(error => {
           this.alert = true
-          this.message = '확실하진 않습니다. 잘 모르겠어요.'
-        }
-
-        this.active = false
-        this.input = false
-      }).catch(error => {
-        this.alert = true
-        this.message = error.response.status + ' ' + error.response.data.error
-        this.input = true
-        this.active = false
-      })
+          this.message = error.response.status + ' ' + error.response.data.error
+          this.input = true
+          this.active = false
+        })
     }
   }
 }

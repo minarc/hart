@@ -4,10 +4,10 @@
       <v-layout>
         <v-flex xs8>
           <v-card-title class="text-sm-left">
-          <div>
-            <div class="headline">News1</div>
-            <div>content</div>
-          </div>
+            <div>
+              <div class="headline">News1</div>
+              <div>content</div>
+            </div>
           </v-card-title>
         </v-flex>
         <v-flex xs4>
@@ -21,8 +21,7 @@
 <script>
 export default {
   data () {
-    return {
-    }
+    return {}
   }
 }
 </script>

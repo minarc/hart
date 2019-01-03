@@ -4,11 +4,26 @@
       <v-container fluid fill-height class="white">
         <v-layout row wrap align-start justify-center>
           <v-flex sm4 class="elevation-5">
-            <v-tabs animated bounce infinite fixed-tabs color="deep-purple accent-4" grow dark show-arrows>
+            <v-tabs
+              animated
+              bounce
+              infinite
+              fixed-tabs
+              color="deep-purple accent-4"
+              grow
+              dark
+              show-arrows
+            >
               <v-tabs-slider color="white"></v-tabs-slider>
-              <v-tab><v-icon>account_box</v-icon></v-tab>
-              <v-tab><v-icon>favorite</v-icon></v-tab>
-              <v-tab><v-icon>search</v-icon></v-tab>
+              <v-tab>
+                <v-icon>account_box</v-icon>
+              </v-tab>
+              <v-tab>
+                <v-icon>favorite</v-icon>
+              </v-tab>
+              <v-tab>
+                <v-icon>search</v-icon>
+              </v-tab>
               <v-tabs-items>
                 <v-tab-item>
                   <component :is="tab1"></component>

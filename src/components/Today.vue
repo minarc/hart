@@ -77,8 +77,7 @@ export default {
   },
   mounted () {},
   methods: {
-    list () {
-    }
+    list () {}
   }
 }
 </script>
