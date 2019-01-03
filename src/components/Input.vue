@@ -41,7 +41,7 @@ export default {
       this.rating = 0
 
       this.text = this.text.trim()
-      axios.get('/api/fasttext?q=' + this.text).then(response => {
+      axios.get('/v1/api/fasttext?q=' + this.text).then(response => {
         this.rating = response['data']['rating']
         this.confidence = response['data']['confidence']
 

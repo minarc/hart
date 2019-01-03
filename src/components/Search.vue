@@ -12,12 +12,12 @@ import axios from 'axios'
 export default {
   name: 'Search',
   created () {
-    axios.get('/api/today').then(response => {
-      this.states = response.data
-    }).catch(error => {
-      console.log(error)
-      this.states = ['부산', '서울', '대구', '광주', '대전', '공주', '천안', '이천', '구리', '광명', '안산', '오산', '일산', '성남', '인천', '울산']
-    })
+    // axios.get('/api/today').then(response => {
+    //   this.states = response.data
+    // }).catch(error => {
+    //   console.log(error)
+    //   this.states = ['부산', '서울', '대구', '광주', '대전', '공주', '천안', '이천', '구리', '광명', '안산', '오산', '일산', '성남', '인천', '울산']
+    // })
   },
   data () {
     return {

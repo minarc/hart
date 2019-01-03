@@ -58,8 +58,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   data () {
     return {}
@@ -67,10 +65,10 @@ export default {
   mounted () {},
   methods: {
     list () {
-      axios.get('/api/today').then(response => {
-      }).catch(error => {
-        console.log(error)
-      })
+      // axios.get('/api/today').then(response => {
+      // }).catch(error => {
+      //   console.log(error)
+      // })
     }
   }
 }

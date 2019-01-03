@@ -11,11 +11,11 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/api': {
-        target: 'http://localhost:3000/api',
+      '/v1': {
+        target: 'http://hart-rest-api.herokuapp.com',
         changeOrigin: true,
         pathRewrite: {
-          '^/api': ''
+          '/v1[1-9]/api': ''
         }
       }
     },
