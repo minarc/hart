@@ -80,6 +80,7 @@ export default {
         this.alert = true
         this.message = error.response.status + ' ' + error.response.data.error
         this.input = true
+        this.active = false
       })
     }
   }
