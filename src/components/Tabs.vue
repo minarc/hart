@@ -9,7 +9,7 @@
               <v-tab><v-icon>account_box</v-icon></v-tab>
               <v-tab><v-icon>favorite</v-icon></v-tab>
               <v-tab><v-icon>search</v-icon></v-tab>
-              <v-tabs-items v-model="currentItem">
+              <v-tabs-items>
                 <v-tab-item>
                   <component :is="tab1"></component>
                 </v-tab-item>

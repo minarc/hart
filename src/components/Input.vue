@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid grid-list-lg class="deep-purple lighten-5">
+  <v-container fluid grid-list-xs class="deep-purple lighten-5">
     <v-layout row wrap>
       <v-flex>
         <v-form ref="form">

@@ -13,10 +13,10 @@ module.exports = {
     proxyTable: {
       '/v1': {
         target: 'https://hart-rest-api.herokuapp.com',
-        changeOrigin: true,
-        pathRewrite: {
-          '^/v1[1-9]/api': '/v1/api'
-        }
+        changeOrigin: true
+        // pathRewrite: {
+          // '^/v1/api': '/v1/api'
+        // }
       }
     },
 
