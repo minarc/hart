@@ -2,7 +2,9 @@
   <v-container fluid grid-list-lg class="deep-purple lighten-5">
     <v-layout row wrap>
       <v-flex>
-        <v-textarea counter solo v-model=text required @keyup.enter="submit()" hint="문장을 입력 해 보세요." label="예문 입력" value=text single-line :disabled=input></v-textarea>
+        <v-form ref="form">
+          <v-text-field v-model=text color="purple" :counter=max :rules=rules @keyup.enter="submit()" label="이곳에 문장을 입력하세요."></v-text-field>
+        </v-form>
         <v-progress-linear :active=active color="purple" :indeterminate="true"></v-progress-linear>
         <v-alert :value=alert color="error" icon="warning" transition="scale-transition"> {{ message }} </v-alert>
         <v-card>
@@ -31,11 +33,33 @@ export default {
       active: false,
       input: false,
       alert: false,
-      message: ''
+      message: '',
+      max: 50
     }
   },
+  computed: {
+    rules () {
+      const rules = []
+      if (this.max) {
+        const rule = v => (v || '').length <= this.max || `최대 ${this.max} 글자까지 가능합니다.`
+        rules.push(rule)
+      }
+      return rules
+    }
+  },
+  watch: {
+    max: 'validateField',
+    model: 'validateFiel'
+  },
   methods: {
+    validateField () {
+      return this.$refs.form.validate()
+    },
     submit (message, error) {
+      if (!this.validateField()) {
+        return
+      }
+
       this.active = this.input = true
       this.alert = false
       this.rating = 0
