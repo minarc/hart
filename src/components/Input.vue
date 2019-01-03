@@ -54,8 +54,8 @@ export default {
         this.input = false
       }).catch(error => {
         this.alert = true
-        this.message = error.response.status + ' ' + error.response.statusText
-        this.active = false
+        this.message = error.response.status + ' ' + error.response
+        this.input = true
       })
     }
   }

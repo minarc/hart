@@ -12,10 +12,10 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/v1': {
-        target: 'http://hart-rest-api.herokuapp.com',
+        target: 'https://hart-rest-api.herokuapp.com',
         changeOrigin: true,
         pathRewrite: {
-          '/v1[1-9]/api': ''
+          '^/v1[1-9]/api': '/v1/api'
         }
       }
     },
