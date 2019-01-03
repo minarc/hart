@@ -69,7 +69,7 @@ export default {
         this.rating = response['data']['rating']
         this.confidence = response['data']['confidence']
 
-        if (this.confidence < 0.6) {
+        if (this.confidence < 0.55) {
           this.alert = true
           this.message = '확실하진 않습니다. 잘 모르겠어요.'
         }
@@ -78,7 +78,7 @@ export default {
         this.input = false
       }).catch(error => {
         this.alert = true
-        this.message = error.response.status + ' ' + error.response
+        this.message = error.response.status + ' ' + error.response.data.error
         this.input = true
       })
     }
