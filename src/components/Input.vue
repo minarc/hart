@@ -11,9 +11,9 @@
             @keyup.enter="submit()"
             label="이곳에 문장을 입력하세요."
             :disabled="linearProgressActive"
+            :loading="linearProgressActive"
           ></v-text-field>
         </v-form>
-        <v-progress-linear :active="linearProgressActive" color="purple" :indeterminate="true"></v-progress-linear>
         <v-alert
           :value="alert"
           color="error"
@@ -95,7 +95,7 @@ export default {
         })
         .catch(error => {
           this.alert = true
-          this.alertMessage = error.response.status + ' ' + error.response.data.error
+          this.message = error.response.status + ' ' + error.response.data.error
           this.input = true
           this.linearProgressActive = false
         })
