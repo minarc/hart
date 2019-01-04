@@ -20,7 +20,7 @@
           transition="scale-transition"
         >{{ message }}</v-alert>
         <v-card>
-          <v-rating></v-rating>
+          <v-rating v-model="rating" size=32 color="purple darken-1" dense readonly half-increments background-color="purple lighten-4" length=10></v-rating>
           <v-card-text>
             <div class="text-md-center">
               <div>rating : {{rating }}</div>
@@ -80,7 +80,7 @@ export default {
 
       this.text = this.text.trim()
       axios
-        .get('/v1/api/fasttext?q=' + this.text)
+        .get('/v1/api/predict?q=' + this.text)
         .then(response => {
           this.rating = response['data']['rating']
           this.confidence = response['data']['confidence']
