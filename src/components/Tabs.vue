@@ -3,7 +3,7 @@
     <v-content>
       <v-container fluid fill-height class="white">
         <v-layout row wrap align-start justify-center>
-          <v-flex sm4 class="elevation-5">
+          <v-flex sm4 xs4 md4 class="elevation-5">
             <v-tabs
               animated
               bounce

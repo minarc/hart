@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img src="./assets/polygon-heart.png">
+    <img src="/static/polygon-heart.png"/>
     <router-view/>
   </div>
 </template>

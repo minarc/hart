@@ -23,8 +23,8 @@
           <v-rating v-model="rating" size=32 color="purple darken-1" dense readonly half-increments background-color="purple lighten-4" length=10></v-rating>
           <v-card-text>
             <div class="text-md-center">
-              <div>rating : {{rating }}</div>
-              <div>confidence : {{confidence}}</div>
+              <div>rating : {{ rating }}</div>
+              <div>confidence : {{ confidence }}</div>
             </div>
           </v-card-text>
         </v-card>
