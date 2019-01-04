@@ -5,7 +5,7 @@
         <v-form ref="form">
           <v-text-field
             v-model="text"
-            color="purple accent-4"
+            color="deep-purple accent-4"
             :counter="max"
             :rules="rules"
             @keyup.enter="submit()"
@@ -19,9 +19,9 @@
           color="error"
           icon="warning"
           transition="scale-transition"
-        >{{ message }}</v-alert>
+        >{{ alertMessage }}</v-alert>
         <v-card>
-          <v-rating v-model="rating" size=32 color="purple darken-1" dense readonly half-increments background-color="purple lighten-4" length=10></v-rating>
+          <v-rating v-model="rating" size=29 color="purple darken-1" dense readonly background-color="purple lighten-4" length=10></v-rating>
           <v-card-text>
             <div class="text-md-center">
               <div>rating : {{ rating }}</div>
@@ -46,7 +46,7 @@ export default {
       linearProgressActive: false,
       input: false,
       alert: false,
-      message: '',
+      alertMessage: '',
       max: 50
     }
   },
@@ -70,7 +70,7 @@ export default {
     validateField () {
       return this.$refs.form.validate()
     },
-    submit (message, error) {
+    submit (alertMessage, error) {
       if (!this.validateField()) {
         return
       }
@@ -88,14 +88,14 @@ export default {
 
           if (this.confidence < 0.55) {
             this.alert = true
-            this.message = '확실하진 않습니다. 잘 모르겠어요.'
+            this.alertMessage = '확실하진 않습니다. 잘 모르겠어요.'
           }
           this.linearProgressActive = false
           this.input = false
         })
         .catch(error => {
           this.alert = true
-          this.message = error.response.status + ' ' + error.response.data.error
+          this.alertMessage = error.response.status + ' ' + error.response.data.error
           this.input = true
           this.linearProgressActive = false
         })

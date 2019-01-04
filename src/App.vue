@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img src="/static/polygon-heart.png"/>
+    <img src="/static/polygon-heart.png">
     <router-view/>
   </div>
 </template>
@@ -13,7 +13,7 @@ export default {
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
