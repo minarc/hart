@@ -5,14 +5,15 @@
         <v-form ref="form">
           <v-text-field
             v-model="text"
-            color="purple"
+            color="purple accent-4"
             :counter="max"
             :rules="rules"
             @keyup.enter="submit()"
             label="이곳에 문장을 입력하세요."
+            :disabled="linearProgressActive"
           ></v-text-field>
         </v-form>
-        <v-progress-linear :active="active" color="purple" :indeterminate="true"></v-progress-linear>
+        <v-progress-linear :active="linearProgressActive" color="purple" :indeterminate="true"></v-progress-linear>
         <v-alert
           :value="alert"
           color="error"
@@ -42,7 +43,7 @@ export default {
       rating: 0,
       confidence: 0,
       text: '이 감독은 또 한 번 실사화 작업을 멋지게 해 냈다.',
-      active: false,
+      linearProgressActive: false,
       input: false,
       alert: false,
       message: '',
@@ -74,7 +75,7 @@ export default {
         return
       }
 
-      this.active = this.input = true
+      this.linearProgressActive = this.input = true
       this.alert = false
       this.rating = 0
 
@@ -89,14 +90,14 @@ export default {
             this.alert = true
             this.message = '확실하진 않습니다. 잘 모르겠어요.'
           }
-          this.active = false
+          this.linearProgressActive = false
           this.input = false
         })
         .catch(error => {
           this.alert = true
           this.message = error.response.status + ' ' + error.response.data.error
           this.input = true
-          this.active = false
+          this.linearProgressActive = false
         })
     }
   }
