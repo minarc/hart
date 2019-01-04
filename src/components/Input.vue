@@ -1,6 +1,6 @@
 <template>
-  <v-container fluid grid-list-xs class="deep-purple lighten-5">
-    <v-layout row wrap>
+  <v-container grid-list-md class="deep-purple lighten-5">
+    <v-layout column>
       <v-flex>
         <v-form ref="form">
           <v-text-field
@@ -20,6 +20,8 @@
           icon="warning"
           transition="scale-transition"
         >{{ alertMessage }}</v-alert>
+      </v-flex>
+      <v-flex>
         <v-card>
           <v-rating v-model="rating" size=29 color="purple darken-1" dense readonly background-color="purple lighten-4" length=10></v-rating>
           <v-card-text>
@@ -44,7 +46,7 @@ export default {
       confidence: 0,
       text: '이 감독은 또 한 번 실사화 작업을 멋지게 해 냈다.',
       linearProgressActive: false,
-      alert: false,
+      alertShow: false,
       alertMessage: '',
       max: 50
     }
