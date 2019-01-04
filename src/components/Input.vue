@@ -78,7 +78,7 @@ export default {
       this.alert = false
       this.rating = 0
 
-      this.text = this.text.trim()
+      this.text = this.text.trim().replace("%", "")
       axios
         .get('/v1/api/predict?q=' + this.text)
         .then(response => {
