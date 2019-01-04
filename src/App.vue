@@ -4,7 +4,9 @@
     <router-view/>
     <v-footer height="165" color="deep-purple">
       <v-layout justify-center row wrap>
-        <v-btn v-for="link in links" :key="link" color="white" flat round>{{ link.link }}</v-btn>
+        <template v-for="link in links">
+          <v-btn :key="link" color="white" flat round :href="`${link.href}`">{{ link.link }}</v-btn>
+        </template>
         <v-flex deep-purple lighten-1 py-3 text-xs-center white--text xs12>
           &copy;2018 —
           <strong>Hart</strong>
@@ -21,7 +23,7 @@ export default {
     links: [
       {
         link: 'Document',
-        href: ''
+        href: 'https://arfrumo.gitbook.io/hart/'
       },
       {
         link: 'About Hart',
@@ -29,11 +31,11 @@ export default {
       },
       {
         link: 'Blog',
-        href: ''
+        href: 'https://rumo.tistory.com/'
       },
       {
         link: 'Contact',
-        href: ''
+        href: 'https://rumo.netlify.com/'
       }
     ]
   })
