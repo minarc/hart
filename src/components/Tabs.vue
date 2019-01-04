@@ -1,17 +1,10 @@
 <template>
   <v-app>
     <v-content>
-      <v-container fluid fill-height class="white">
-        <v-layout row wrap align-start justify-center>
+      <v-container fluid class="white">
+        <v-layout row align-start justify-center>
           <v-flex sm4 xs4 md4 class="elevation-5">
-            <v-tabs
-              infinite
-              fixed-tabs
-              color="deep-purple accent-4"
-              grow
-              dark
-              show-arrows
-            >
+            <v-tabs infinite fixed-tabs color="deep-purple accent-4" grow dark show-arrows>
               <v-tabs-slider color="white"></v-tabs-slider>
               <v-tab>
                 <v-icon>account_box</v-icon>

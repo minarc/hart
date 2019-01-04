@@ -15,7 +15,7 @@
           ></v-text-field>
         </v-form>
         <v-alert
-          :value="alert"
+          :value="alertShow"
           color="error"
           icon="warning"
           transition="scale-transition"
@@ -44,7 +44,6 @@ export default {
       confidence: 0,
       text: '이 감독은 또 한 번 실사화 작업을 멋지게 해 냈다.',
       linearProgressActive: false,
-      input: false,
       alert: false,
       alertMessage: '',
       max: 50
@@ -75,28 +74,26 @@ export default {
         return
       }
 
-      this.linearProgressActive = this.input = true
-      this.alert = false
+      this.linearProgressActive = true
+      this.alertShow = false
       this.rating = 0
 
       this.text = this.text.trim()
       axios
         .get('/v1/api/predict?q=' + this.text)
         .then(response => {
-          this.rating = response['data']['rating']
-          this.confidence = response['data']['confidence']
+          this.rating = response.data.rating
+          this.confidence = response.data.confidence
 
           if (this.confidence < 0.55) {
-            this.alert = true
+            this.alertShow = true
             this.alertMessage = '확실하진 않습니다. 잘 모르겠어요.'
           }
           this.linearProgressActive = false
-          this.input = false
         })
         .catch(error => {
-          this.alert = true
+          this.alertShow = true
           this.message = error.response.status + ' ' + error.response.data.error
-          this.input = true
           this.linearProgressActive = false
         })
     }
