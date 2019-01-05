@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/v1': {
-        target: 'https://hart-rest-api.herokuapp.com',
+        target: 'http://localhost:3000',
         changeOrigin: true
         // pathRewrite: {
           // '^/v1/api': '/v1/api'

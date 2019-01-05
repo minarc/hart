@@ -1,24 +1,61 @@
 <template>
-  <v-toolbar dark flat color="deep-purple accent-2">
-    <v-toolbar-title>search</v-toolbar-title>
-    <v-autocomplete
-      :loading="loading"
-      :items="items"
-      :search-input.sync="search"
-      v-model="select"
-      cache-items
-      class="mx-3"
-      flat
-      hide-no-data
-      hide-details
-      hide-selected
-      solo-inverted
-      @keyup.enter="submit(select)"
-    ></v-autocomplete>
-    <v-btn icon @click="submit(select)">
-      <v-icon>search</v-icon>
-    </v-btn>
-  </v-toolbar>
+  <v-layout row wrap>
+    <v-flex xs12 sm12 md12>
+      <v-toolbar dark flat color="deep-purple accent-2">
+        <v-toolbar-title>뉴스</v-toolbar-title>
+        <v-autocomplete
+          :loading="loading"
+          :search-input.sync="search"
+          cache-items
+          flat
+          class="mx-3"
+          hide-no-data
+          hide-details
+          hide-selected
+          solo-inverted
+          @keyup.enter="submit()"
+        ></v-autocomplete>
+        <v-btn icon @click="submit()">
+          <v-icon>search</v-icon>
+        </v-btn>
+      </v-toolbar>
+    </v-flex>
+    <v-flex>
+      <v-list v-show="news.length > 0" subheader three-line style="overflow-y: auto; height: 500;">
+        <v-subheader class="deep-purple darken-2">
+          <v-spacer></v-spacer>
+          <v-rating
+            v-model="averageRating"
+            background-color="white"
+            color="white"
+            dense
+            readonly
+            length=10
+            half-increments
+            hover
+          ></v-rating>
+          <v-chip label outline text-color="white">{{ averageRating }}</v-chip>
+          <v-spacer></v-spacer>
+        </v-subheader>
+        <template v-for="(item, index) in news">
+          <v-list-tile :key="item.title" avatar ripple :href="`$item.link`">
+            <v-list-tile-content>
+              <v-list-tile-title v-html="item.title"></v-list-tile-title>
+              <v-list-tile-sub-title v-html="item.description"></v-list-tile-sub-title>
+              <!-- <v-list-tile-sub-title>test</v-list-tile-sub-title> -->
+            </v-list-tile-content>
+
+            <v-list-tile-action>
+              <v-list-tile-action-text v-html="item.pubDate - new Date()"></v-list-tile-action-text>
+              <v-icon v-if="item.rating < 8" color="grey lighten-1">star_border</v-icon>
+              <v-icon v-else color="yellow darken-2">star</v-icon>
+            </v-list-tile-action>
+          </v-list-tile>
+          <v-divider v-if="index + 1 < news.length" :key="index"></v-divider>
+        </template>
+      </v-list>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
@@ -30,30 +67,29 @@ export default {
   data () {
     return {
       loading: false,
-      items: [],
       search: null,
       select: null,
-      states: [],
-      chart: '',
-      chip: ''
-    }
-  },
-  watch: {
-    search (value) {
-      value && value !== this.select && this.simulatedQuery(value)
+      news: [],
+      averageRating: null
     }
   },
   methods: {
-    // mysql
+    // Naver News Search API
     submit (message, event) {
       axios
-        .get('/api/emotion')
+        .get('/v1/api/news/naver', {
+          params: {
+            query: this.search,
+            sort: 'sim'
+          }
+        })
         .then(response => {
-          this.component = 'chart'
+          this.news = response.data.items
+          this.averageRating =
+            this.news.map(n => n.rating).reduce((a, b) => a + b, 0) / 10
         })
         .catch(error => {
           console.log(error)
-          this.chip = 'chips'
         })
     },
     simulatedQuery (v) {
@@ -66,3 +102,9 @@ export default {
   }
 }
 </script>
+<style>
+.v-list {
+  max-height: 360px;
+  overflow-y: auto;
+}
+</style>
