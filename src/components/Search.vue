@@ -30,11 +30,12 @@
             color="white"
             dense
             readonly
-            length=10
             half-increments
             hover
           ></v-rating>
-          <v-chip label outline text-color="white">{{ averageRating }}</v-chip>
+          <v-chip label small outline text-color="white">{{ averageRating }}</v-chip>
+          <v-chip v-if="averageRating < 2.5" label small color='red' text-color="white">부정적</v-chip>
+          <v-chip v-if="averageRating >= 4" label small color='green accent-4' text-color="white">긍정적</v-chip>
           <v-spacer></v-spacer>
         </v-subheader>
         <template v-for="(item, index) in news">
@@ -86,7 +87,7 @@ export default {
         .then(response => {
           this.news = response.data.items
           this.averageRating =
-            this.news.map(n => n.rating).reduce((a, b) => a + b, 0) / 10
+            this.news.map(n => n.rating).reduce((a, b) => a + b, 0) / this.news.length / 2
         })
         .catch(error => {
           console.log(error)
