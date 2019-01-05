@@ -38,7 +38,7 @@
           <v-spacer></v-spacer>
         </v-subheader>
         <template v-for="(item, index) in news">
-          <v-list-tile :key="item.title" avatar ripple :href="`$item.link`">
+          <v-list-tile :key="item.title" avatar ripple :href="item.link">
             <v-list-tile-content>
               <v-list-tile-title v-html="item.title"></v-list-tile-title>
               <v-list-tile-sub-title v-html="item.description"></v-list-tile-sub-title>
@@ -46,7 +46,7 @@
             </v-list-tile-content>
 
             <v-list-tile-action>
-              <v-list-tile-action-text v-html="item.pubDate - new Date()"></v-list-tile-action-text>
+              <v-list-tile-action-text>{{ item.rating }}</v-list-tile-action-text>
               <v-icon v-if="item.rating < 8" color="grey lighten-1">star_border</v-icon>
               <v-icon v-else color="yellow darken-2">star</v-icon>
             </v-list-tile-action>
