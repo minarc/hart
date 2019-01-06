@@ -4,9 +4,14 @@
     <router-view/>
     <v-footer height="165" color="deep-purple">
       <v-layout justify-center row wrap>
-        <!-- <template v-for="link in links"> -->
-          <!-- <v-btn :key="link" color="white" flat round :href="`${link.href}`">{{ link.link }}</v-btn> -->
-        <!-- </template> -->
+        <v-btn
+          v-for="link in links"
+          :key="link.link"
+          color="white"
+          flat
+          round
+          :href="link.href"
+        >{{ link.link }}</v-btn>
         <v-flex deep-purple lighten-1 py-3 text-xs-center white--text xs12>
           &copy;2018 —
           <strong>Hart</strong>
@@ -34,7 +39,7 @@ export default {
         href: 'https://rumo.tistory.com/'
       },
       {
-        link: 'Contact',
+        link: 'Contact Me',
         href: 'https://rumo.netlify.com/'
       }
     ]

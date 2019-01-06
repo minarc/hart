@@ -1,27 +1,45 @@
 <template>
   <v-layout row wrap>
     <v-flex xs12 sm12 md12>
-      <v-toolbar dark flat color="deep-purple accent-2">
+      <v-toolbar dark flat color="deep-purple accent-2" prominent>
+        <v-toolbar-title class="font-weight-medium">HART</v-toolbar-title>
         <v-autocomplete
-          :loading="loading"
+          :loading="searchLoading"
+          color="yellow darken-3"
           :search-input.sync="search"
           cache-items
           flat
+          class="mx-3"
           hide-no-data
           hide-details
+          :disabled="searchLoading"
           hide-selected
           solo-inverted
-          @keyup.enter="submit()"
+          :label="label"
+          @keyup.enter="submit(search)"
         ></v-autocomplete>
-        <v-btn icon @click="submit()">
-          <v-icon>search</v-icon>
-        </v-btn>
+        <v-menu :nudge-width="100">
+          <v-toolbar-title slot="activator">
+            <v-icon dark>more_vert</v-icon>
+          </v-toolbar-title>
+          <v-list class="white">
+            <v-list-tile v-for="item in 3" :key="item" href>
+              <v-list-tile-title>{{item}}</v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
       </v-toolbar>
     </v-flex>
     <v-flex>
-      <v-tabs slot="extension" color="deep-purple accent-2" dark slider-color="white">
-        <v-tab>News</v-tab>
-        <v-tab>Blog</v-tab>
+      <v-tabs
+        v-show="this.news.length > 0"
+        slot="extension"
+        color="deep-purple accent-2"
+        dark
+        slider-color="white"
+      >
+        <v-tab class="font-weight-light">News</v-tab>
+        <v-tab class="font-weight-light">Blog</v-tab>
         <v-tabs-items>
           <v-tab-item>
             <v-list
@@ -56,7 +74,7 @@
                 <v-list-tile :key="item.title" avatar ripple :href="item.link">
                   <v-list-tile-content>
                     <v-list-tile-title v-html="item.title"></v-list-tile-title>
-                    <v-list-tile-sub-title v-html="item.description"></v-list-tile-sub-title>
+                    <v-list-tile-sub-title class="font-weight-regular" v-html="item.description"></v-list-tile-sub-title>
                     <!-- <v-list-tile-sub-title>test</v-list-tile-sub-title> -->
                   </v-list-tile-content>
 
@@ -110,7 +128,7 @@
                   <v-list-tile-content>
                     <v-list-tile-title v-html="item.title"></v-list-tile-title>
                     <v-list-tile-sub-title v-html="item.description"></v-list-tile-sub-title>
-                    <!-- <v-list-tile-sub-title>test</v-list-tile-sub-title> -->
+                    <v-list-tile-sub-title>{{item.postdate}}</v-list-tile-sub-title>
                   </v-list-tile-content>
 
                   <v-list-tile-action>
@@ -126,6 +144,20 @@
         </v-tabs-items>
       </v-tabs>
     </v-flex>
+    <v-flex xs12 sm12 md12>
+      <v-card class="elevation-24">
+        <v-card-text>
+          <v-chip
+            outline
+            small
+            color="deep-purple"
+            v-for="item in naverRank"
+            :key="item.keyword"
+            @click="submit(item.keyword)"
+          >#{{item.keyword}}</v-chip>
+        </v-card-text>
+      </v-card>
+    </v-flex>
   </v-layout>
 </template>
 
@@ -135,24 +167,33 @@ import axios from 'axios'
 export default {
   name: 'Search',
   created () {},
+  mounted () {
+    axios.get('http://rank.search.naver.com/rank.js').then(response => {
+      this.naverRank = response.data.data[0].data.slice(0, 10)
+    })
+  },
   data () {
     return {
       loading: false,
       search: null,
       select: null,
       news: [],
+      label: '',
       blog: [],
+      searchLoading: false,
       averageRating: null,
-      averageRatingBlog: null
+      averageRatingBlog: null,
+      naverRank: []
     }
   },
   methods: {
     // Naver News Search API
-    submit (message, event) {
-      axios
+    async submit (message) {
+      this.searchLoading = true
+      await axios
         .get('/v1/api/news/naver', {
           params: {
-            query: this.search,
+            query: message,
             sort: 'sim',
             display: 20
           }
@@ -165,13 +206,13 @@ export default {
             2
         })
         .catch(error => {
-          console.log(error)
+          this.label = error
         })
 
-      axios
+      await axios
         .get('/v1/api/blog/naver', {
           params: {
-            query: this.search,
+            query: message,
             display: 20
           }
         })
@@ -183,9 +224,9 @@ export default {
             2
         })
         .catch(error => {
-          console.log(error)
+          this.label = error
         })
-      console.log(this.blog)
+      this.searchLoading = false
     },
     simulatedQuery (v) {
       this.loading = 'info'
