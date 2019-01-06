@@ -10,6 +10,8 @@
           :search-input.sync="search"
           cache-items
           flat
+          autofocus
+          browser-autocomple
           :items="redisCache"
           class="mx-3"
           hide-no-data
@@ -21,12 +23,12 @@
         >
           <template slot="item" slot-scope="{ item }">
             <v-list-tile-avatar
-              size="35"
+              size="30"
               color="deep-purple"
               class="headline font-weight-light white--text"
             >{{ item.charAt(0)}}</v-list-tile-avatar>
             <v-list-tile-content>
-              <v-list-tile-title v-text="item"></v-list-tile-title>
+              <v-list-tile-title v-text="item" @click="submit(item)"></v-list-tile-title>
               <!-- <v-list-tile-sub-title v-text="item"></v-list-tile-sub-title> -->
             </v-list-tile-content>
             <v-list-tile-action>
@@ -173,8 +175,8 @@ export default {
   name: 'Search',
   created () {},
   mounted () {
-    axios.get('http://rank.search.naver.com/rank.js').then(response => {
-      this.naverRank = response.data.data[0].data.slice(0, 10)
+    axios.get('/v1/api/redis/ranks').then(response => {
+      this.naverRank = response.data.ranks
     })
     axios.get('/v1/api/redis/cache').then(response => {
       this.redisCache = response.data.cache
@@ -252,7 +254,7 @@ export default {
       this.searchLoading = false
     },
     simulatedQuery (v) {
-      this.loading = 'info'
+      this.loading = true
       this.items = this.states.filter(
         e => (e || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
       )

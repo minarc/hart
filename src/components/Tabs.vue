@@ -3,7 +3,7 @@
     <v-layout align-center justify-center row>
       <v-flex sm9 xs12 md7 class="elevation-4">
         <v-tabs color="deep-purple accent-4" grow dark icons-and-text>
-          <v-tabs-slider color="yellow darken-3"></v-tabs-slider>
+          <v-tabs-slider color="yellow darken-3" style="height: 5px"></v-tabs-slider>
           <v-tab>
             감성 분류
             <v-icon>apps</v-icon>
