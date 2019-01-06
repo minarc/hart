@@ -4,30 +4,39 @@
       <v-toolbar dark flat color="deep-purple accent-2" prominent>
         <v-toolbar-title class="font-weight-medium">HART</v-toolbar-title>
         <v-autocomplete
+          dense
           :loading="searchLoading"
           color="yellow darken-3"
           :search-input.sync="search"
           cache-items
           flat
+          :items="redisCache"
           class="mx-3"
           hide-no-data
           hide-details
           :disabled="searchLoading"
-          hide-selected
           solo-inverted
           :label="label"
           @keyup.enter="submit(search)"
-        ></v-autocomplete>
-        <v-menu :nudge-width="100">
-          <v-toolbar-title slot="activator">
-            <v-icon dark>more_vert</v-icon>
-          </v-toolbar-title>
-          <v-list class="white">
-            <v-list-tile v-for="item in 3" :key="item" href>
-              <v-list-tile-title>{{item}}</v-list-tile-title>
-            </v-list-tile>
-          </v-list>
-        </v-menu>
+        >
+          <template slot="item" slot-scope="{ item }">
+            <v-list-tile-avatar
+              size="35"
+              color="deep-purple"
+              class="headline font-weight-light white--text"
+            >{{ item.charAt(0)}}</v-list-tile-avatar>
+            <v-list-tile-content>
+              <v-list-tile-title v-text="item"></v-list-tile-title>
+              <!-- <v-list-tile-sub-title v-text="item"></v-list-tile-sub-title> -->
+            </v-list-tile-content>
+            <v-list-tile-action>
+              <!-- <v-icon>person</v-icon> -->
+            </v-list-tile-action>
+          </template>
+        </v-autocomplete>
+        <v-btn icon>
+          <v-icon>more_vert</v-icon>
+        </v-btn>
       </v-toolbar>
     </v-flex>
     <v-flex>
@@ -36,7 +45,8 @@
         slot="extension"
         color="deep-purple accent-2"
         dark
-        slider-color="white"
+        slider-color="yellow darken-2"
+        height="35"
       >
         <v-tab class="font-weight-light">News</v-tab>
         <v-tab class="font-weight-light">Blog</v-tab>
@@ -166,25 +176,43 @@ export default {
     axios.get('http://rank.search.naver.com/rank.js').then(response => {
       this.naverRank = response.data.data[0].data.slice(0, 10)
     })
+    axios.get('/v1/api/redis/cache').then(response => {
+      this.redisCache = response.data.cache
+    })
   },
   data () {
     return {
       loading: false,
       search: null,
       select: null,
+      redisCache: [],
       news: [],
       label: '',
       blog: [],
       searchLoading: false,
       averageRating: null,
       averageRatingBlog: null,
-      naverRank: []
+      naverRank: [],
+      noResult: null,
+      redisClient: null
+    }
+  },
+  watch: {
+    redisRecommandation (keyword) {
+      keyword && keyword !== this.search && this.queryRedis(keyword)
     }
   },
   methods: {
     // Naver News Search API
+    queryRedis (keyword) {
+      this.searchLoading = true
+      this.searchLoading = false
+    },
     async submit (message) {
       this.searchLoading = true
+      axios.post('/v1/api/redis/cache', {
+        keyword: message
+      })
       await axios
         .get('/v1/api/news/naver', {
           params: {
