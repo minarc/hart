@@ -75,7 +75,6 @@
                   <v-list-tile-content>
                     <v-list-tile-title v-html="item.title"></v-list-tile-title>
                     <v-list-tile-sub-title class="font-weight-regular" v-html="item.description"></v-list-tile-sub-title>
-                    <!-- <v-list-tile-sub-title>test</v-list-tile-sub-title> -->
                   </v-list-tile-content>
 
                   <v-list-tile-action>
@@ -145,18 +144,14 @@
       </v-tabs>
     </v-flex>
     <v-flex xs12 sm12 md12>
-      <v-card class="elevation-24">
-        <v-card-text>
-          <v-chip
-            outline
-            small
-            color="deep-purple"
-            v-for="item in naverRank"
-            :key="item.keyword"
-            @click="submit(item.keyword)"
-          >#{{item.keyword}}</v-chip>
-        </v-card-text>
-      </v-card>
+      <v-chip
+        outline
+        small
+        color="deep-purple"
+        v-for="item in naverRank"
+        :key="item.keyword"
+        @click="submit(item.keyword)"
+      >#{{item.keyword}}</v-chip>
     </v-flex>
   </v-layout>
 </template>
@@ -240,7 +235,7 @@ export default {
 </script>
 <style>
 .v-list {
-  max-height: 360px;
+  max-height: 300px;
   overflow-y: auto;
 }
 </style>

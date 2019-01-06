@@ -6,11 +6,15 @@
           <v-tabs-slider color="yellow darken-3"></v-tabs-slider>
           <v-tab>
             감성 분류
-            <v-icon>account_box</v-icon>
+            <v-icon>apps</v-icon>
           </v-tab>
           <v-tab>
             감성 검색
             <v-icon>search</v-icon>
+          </v-tab>
+          <v-tab>
+            개발중
+            <v-icon>person</v-icon>
           </v-tab>
           <v-tabs-items>
             <v-tab-item>
@@ -18,6 +22,9 @@
             </v-tab-item>
             <v-tab-item>
               <newsSearchTab/>
+            </v-tab-item>
+            <v-tab-item>
+              <personTab/>
             </v-tab-item>
           </v-tabs-items>
         </v-tabs>
@@ -29,11 +36,13 @@
 <script>
 import search from './Search.vue'
 import input from './Input.vue'
+import person from './Person.vue'
 
 export default {
   components: {
     inputTab: input,
-    newsSearchTab: search
+    newsSearchTab: search,
+    personTab: person
   },
   data () {
     return {}
