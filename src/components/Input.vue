@@ -1,12 +1,10 @@
 <template>
-  <v-container grid-list-md class="deep-purple accent-2">
+  <v-container grid-list-md>
     <v-layout column>
       <v-flex>
         <v-form ref="form">
           <v-text-field
             v-model="text"
-            color="white"
-            dark
             :counter="max"
             :rules="rules"
             @keyup.enter="submit()"
@@ -23,9 +21,9 @@
         >{{ alertMessage }}</v-alert>
       </v-flex>
       <v-flex>
-        <v-card>
+        <v-card color="deep-purple accent-2" dark>
           <v-card-text>
-            <v-rating v-model="rating" size=29 color="purple darken-1" dense readonly background-color="purple lighten-4" length=10></v-rating>
+            <v-rating v-model="rating" size=29 color="white" dense readonly background-color="grey lighten-1" length=10></v-rating>
             <div class="text-md-center">
               <div>rating : {{ rating }}</div>
               <div>confidence : {{ confidence }}</div>

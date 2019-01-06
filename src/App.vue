@@ -1,6 +1,6 @@
 <template>
   <v-app class="white">
-    <v-img :src="`/static/polygon-heart.png`" height="250" contain/>
+    <v-img :src="`/static/polygon-heart.png`" height="200" contain/>
     <router-view/>
     <v-footer height="165" color="deep-purple">
       <v-layout justify-center row wrap>
