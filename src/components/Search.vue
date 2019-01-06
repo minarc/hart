@@ -254,7 +254,7 @@ export default {
       this.searchLoading = false
     },
     simulatedQuery (v) {
-      this.loading = 'info'
+      this.loading = true
       this.items = this.states.filter(
         e => (e || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
       )
