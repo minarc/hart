@@ -37,12 +37,14 @@
 import search from './Search.vue'
 import input from './Input.vue'
 import person from './Person.vue'
+import critic from './Critic.vue'
 
 export default {
   components: {
     inputTab: input,
     newsSearchTab: search,
-    personTab: person
+    personTab: person,
+    critic: critic
   },
   data () {
     return {}
