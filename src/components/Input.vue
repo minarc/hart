@@ -7,6 +7,7 @@
             v-model="text"
             :counter="max"
             :rules="rules"
+            color="deep-purple accent-2"
             @keyup.enter="submit()"
             label="이곳에 문장을 입력하세요."
             :disabled="linearProgressActive"
@@ -43,7 +44,7 @@ export default {
     return {
       rating: 0,
       confidence: 0,
-      text: '이 감독은 또 한 번 실사화 작업을 멋지게 해 냈다.',
+      text: '',
       linearProgressActive: false,
       alertShow: false,
       alertMessage: '',
