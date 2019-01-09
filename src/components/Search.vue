@@ -204,10 +204,7 @@ export default {
       naverRank: [],
       noResult: null,
       redisClient: null,
-      menu: [
-        { title: '정확도' },
-        { title: '최신순' }
-      ]
+      menu: [{ title: '정확도' }, { title: '최신순' }]
     }
   },
   watch: {

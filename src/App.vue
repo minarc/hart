@@ -1,6 +1,7 @@
 <template>
   <v-app class="white">
     <v-img :src="`/static/polygon-heart.png`" height="200" contain/>
+    <h2 class="display-3 font-weight-light deep-purple--text">HART</h2>
     <router-view/>
     <v-footer height="165" color="deep-purple">
       <v-layout justify-center row wrap>
@@ -48,8 +49,9 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css?family=Nanum+Myeongjo');
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: "Avenir", 'Nanum Myeongjo', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
