@@ -1,7 +1,7 @@
 <template>
   <v-layout row wrap>
     <v-flex xs12 sm12 md12>
-      <v-toolbar dark flat color="deep-purple accent-2" prominent>
+      <v-toolbar dark flat color="deep-purple accent-2">
         <v-toolbar-title class="font-weight-medium">HART</v-toolbar-title>
         <v-autocomplete
           dense
@@ -36,9 +36,16 @@
             </v-list-tile-action>
           </template>
         </v-autocomplete>
-        <v-btn icon>
-          <v-icon>more_vert</v-icon>
-        </v-btn>
+        <v-menu bottom left>
+          <v-btn slot="activator" dark icon>
+            <v-icon>more_vert</v-icon>
+          </v-btn>
+          <v-list>
+            <v-list-tile v-for="(item, i) in menu" :key="i" @click="() => {}">
+              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
       </v-toolbar>
     </v-flex>
     <v-flex>
@@ -196,7 +203,11 @@ export default {
       averageRatingBlog: null,
       naverRank: [],
       noResult: null,
-      redisClient: null
+      redisClient: null,
+      menu: [
+        { title: '정확도' },
+        { title: '최신순' }
+      ]
     }
   },
   watch: {
@@ -252,13 +263,6 @@ export default {
           this.label = error
         })
       this.searchLoading = false
-    },
-    simulatedQuery (v) {
-      this.loading = true
-      this.items = this.states.filter(
-        e => (e || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
-      )
-      this.loading = false
     }
   }
 }
