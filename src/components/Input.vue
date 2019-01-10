@@ -1,14 +1,13 @@
 <template>
-  <v-container grid-list-md class="deep-purple accent-2">
+  <v-container grid-list-md>
     <v-layout column>
       <v-flex>
         <v-form ref="form">
           <v-text-field
-            dark
             v-model="text"
             :counter="max"
             :rules="rules"
-            color="amber"
+            color="deep-purple accent-2"
             @keyup.enter="submit()"
             label="이곳에 문장을 입력하세요."
             :disabled="linearProgressActive"
@@ -23,7 +22,7 @@
         >{{ alertMessage }}</v-alert>-->
       </v-flex>
       <v-flex>
-        <v-card flat>
+        <v-card>
           <v-card-text>
             <v-slider
               v-model="rating"

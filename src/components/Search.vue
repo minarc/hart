@@ -69,15 +69,6 @@
             >
               <v-subheader class="deep-purple darken-1">
                 <v-spacer></v-spacer>
-                <v-rating
-                  v-model="averageRating"
-                  background-color="white"
-                  color="white"
-                  dense
-                  readonly
-                  half-increments
-                  hover
-                ></v-rating>
                 <v-chip label small outline text-color="white">{{ averageRating }}</v-chip>
                 <v-chip v-if="averageRating < 2.5" label small color="red" text-color="white">부정적</v-chip>
                 <v-chip
@@ -115,15 +106,6 @@
             >
               <v-subheader class="deep-purple darken-1">
                 <v-spacer></v-spacer>
-                <v-rating
-                  v-model="averageRatingBlog"
-                  background-color="white"
-                  color="white"
-                  dense
-                  readonly
-                  half-increments
-                  hover
-                ></v-rating>
                 <v-chip label small outline text-color="white">{{ averageRatingBlog }}</v-chip>
                 <v-chip
                   v-if="averageRatingBlog < 2.5"
