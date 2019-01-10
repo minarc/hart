@@ -14,17 +14,35 @@
             :loading="linearProgressActive"
           ></v-text-field>
         </v-form>
-        <v-alert
+        <!-- <v-alert
           :value="alertShow"
           color="error"
           icon="warning"
           transition="scale-transition"
-        >{{ alertMessage }}</v-alert>
+        >{{ alertMessage }}</v-alert> -->
       </v-flex>
       <v-flex>
-        <v-card color="deep-purple accent-2" dark>
+        <v-card color="deep-purple darken-1" dark>
           <v-card-text>
-            <v-rating v-model="rating" size=29 color="white" dense readonly background-color="grey lighten-1" length=10></v-rating>
+            <v-slider
+              v-model="rating"
+              thumb-color="amber accent-4"
+              thumb-label="always"
+              color="light-blue accent-2"
+              always-dirty
+              min="-5"
+              max="5"
+              ticks="always"
+              tick-size="2"
+              :tick-labels="['-5', '-4', '-3', '-2', '-1', '0', '+1', '+2', '+3', '+4', '+5']"
+              track-color="red accent-2"
+              readonly
+              height=75
+            >
+              <!-- <v-icon slot="prepend" color="white">mood_good</v-icon> -->
+              <!-- <v-icon slot="append" color="white">mood_bad</v-icon> -->
+            </v-slider>
+            <!-- <v-rating v-model="rating" size=29 color="white" dense readonly background-color="grey lighten-1" length=10></v-rating> -->
             <div class="text-md-center">
               <div>rating : {{ rating }}</div>
               <div>confidence : {{ confidence }}</div>
@@ -84,7 +102,7 @@ export default {
       axios
         .get('/v1/api/predict?q=' + this.text)
         .then(response => {
-          this.rating = response.data.rating
+          this.rating = response.data.rating - 5
           this.confidence = response.data.confidence
 
           if (this.confidence < 0.55) {
