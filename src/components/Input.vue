@@ -1,13 +1,14 @@
 <template>
-  <v-container grid-list-md>
+  <v-container grid-list-md class="deep-purple accent-2">
     <v-layout column>
       <v-flex>
         <v-form ref="form">
           <v-text-field
+            dark
             v-model="text"
             :counter="max"
             :rules="rules"
-            color="deep-purple accent-2"
+            color="amber"
             @keyup.enter="submit()"
             label="이곳에 문장을 입력하세요."
             :disabled="linearProgressActive"
@@ -19,15 +20,15 @@
           color="error"
           icon="warning"
           transition="scale-transition"
-        >{{ alertMessage }}</v-alert> -->
+        >{{ alertMessage }}</v-alert>-->
       </v-flex>
       <v-flex>
-        <v-card color="deep-purple darken-1" dark>
+        <v-card flat>
           <v-card-text>
             <v-slider
               v-model="rating"
-              thumb-color="amber accent-4"
-              thumb-label="always"
+              thumb-color="deep-purple accent-2"
+              thumb-size="25"
               color="light-blue accent-2"
               always-dirty
               min="-5"
@@ -37,17 +38,23 @@
               :tick-labels="['-5', '-4', '-3', '-2', '-1', '0', '+1', '+2', '+3', '+4', '+5']"
               track-color="red accent-2"
               readonly
-              height=75
             >
-              <!-- <v-icon slot="prepend" color="white">mood_good</v-icon> -->
-              <!-- <v-icon slot="append" color="white">mood_bad</v-icon> -->
+              <v-icon slot="prepend" color="light-blue accent-1">mood</v-icon>
+              <v-icon slot="append" color="red accent-1">mood_bad</v-icon>
             </v-slider>
-            <!-- <v-rating v-model="rating" size=29 color="white" dense readonly background-color="grey lighten-1" length=10></v-rating> -->
-            <div class="text-md-center">
-              <div>rating : {{ rating }}</div>
-              <div>confidence : {{ confidence }}</div>
-            </div>
           </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-chip
+              small
+              disabled
+              label
+              :color="sentimentColor"
+              text-color="white"
+            >{{ sentimentLabel }}</v-chip>
+            <v-spacer></v-spacer>
+          </v-card-actions>
         </v-card>
       </v-flex>
     </v-layout>
@@ -66,7 +73,53 @@ export default {
       linearProgressActive: false,
       alertShow: false,
       alertMessage: '',
-      max: 50
+      max: 50,
+      sentimentExplain: [
+        {
+          label: '극심한 비판',
+          color: 'red accent-4'
+        },
+        {
+          label: '매우 부정적',
+          color: 'red accent-3'
+        },
+        {
+          label: '다소 부정적',
+          color: 'red accent-2'
+        },
+        {
+          label: '부정적',
+          color: 'red accent-1'
+        },
+        {
+          label: '조금 부정적',
+          color: 'red accent-1'
+        },
+        {
+          label: '중립',
+          color: 'deep-purple accent-1'
+        },
+        {
+          label: '조금 긍정적',
+          color: 'light-blue'
+        },
+        {
+          label: '다소 긍정적',
+          color: 'light-blue accent-1'
+        },
+        {
+          label: '긍정적',
+          color: 'light-blue accent-2'
+        },
+        {
+          label: '상당히 긍정적',
+          color: 'light-blue accent-3'
+        },
+        {
+          label: '극찬',
+          color: 'light-blue accent-4'
+        }
+      ]
     }
   },
   computed: {
@@ -79,6 +132,12 @@ export default {
         rules.push(rule)
       }
       return rules
+    },
+    sentimentLabel () {
+      return this.sentimentExplain[this.rating + 5]['label']
+    },
+    sentimentColor () {
+      return this.sentimentExplain[this.rating + 5]['color']
     }
   },
   watch: {

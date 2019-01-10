@@ -4,7 +4,9 @@ import Vuetify from 'vuetify'
 import Tabs from '@/components/Tabs'
 
 Vue.use(Router)
-Vue.use(Vuetify)
+Vue.use(Vuetify, {
+  iconfont: 'mdi'
+})
 
 export default new Router({
   routes: [{
