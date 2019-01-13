@@ -248,7 +248,7 @@ export default {
 </script>
 <style>
 .v-list {
-  max-height: 300px;
+  max-height: 260px;
   overflow-y: auto;
 }
 </style>
