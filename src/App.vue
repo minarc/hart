@@ -1,9 +1,7 @@
 <template>
   <v-app class="white">
-    <v-img :src="`/static/polygon-heart.png`" height="200" contain/>
-    <h2 class="display-3 font-weight-light deep-purple--text">HART</h2>
-    <router-view/>
-    <v-footer height="165" color="deep-purple">
+   <router-view/>
+    <v-footer height="auto" color="deep-purple">
       <v-layout justify-center row wrap>
         <v-btn
           v-for="link in links"
@@ -29,11 +27,11 @@ export default {
     links: [
       {
         link: 'Document',
-        href: 'https://arfrumo.gitbook.io/hart/'
+        href: '#/document'
       },
       {
-        link: 'About Hart',
-        href: ''
+        link: 'Hart Demo',
+        href: '/'
       },
       {
         link: 'Blog',

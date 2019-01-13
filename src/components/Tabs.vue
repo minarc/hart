@@ -1,5 +1,8 @@
 <template>
   <v-container class="white">
+    <v-img :src="`/static/polygon-heart.png`" height="200" contain/>
+    <h2 class="display-3 font-weight-light deep-purple--text">HART</h2>
+
     <v-layout align-center justify-center row>
       <v-flex sm9 xs12 md7 class="elevation-4">
         <v-tabs color="deep-purple accent-4" grow dark icons-and-text>

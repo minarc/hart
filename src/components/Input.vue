@@ -26,20 +26,19 @@
           <v-card-text>
             <v-slider
               v-model="rating"
+              thumb-label="always"
               thumb-color="deep-purple accent-2"
               thumb-size="25"
               color="light-blue accent-2"
               always-dirty
-              min="-5"
-              max="5"
-              ticks="always"
-              tick-size="2"
-              :tick-labels="['-5', '-4', '-3', '-2', '-1', '0', '+1', '+2', '+3', '+4', '+5']"
+              min="-1"
+              max="1"
+              step="0.25"
+              tick-size="0"
+              :tick-labels="['-1', '', '-0.5', '', '0', '', '+0.5', '', '+1']"
               track-color="red accent-2"
               readonly
             >
-              <v-icon slot="prepend" color="light-blue accent-1">mood</v-icon>
-              <v-icon slot="append" color="red accent-1">mood_bad</v-icon>
             </v-slider>
           </v-card-text>
           <v-divider></v-divider>
