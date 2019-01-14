@@ -30,7 +30,7 @@
               step="1"
               tick-size="1"
               :tick-labels="['-1', '-.8', '-.6', '-.4', '-.2', '0', '.2', '.4', '.6', '.8', '+1']"
-              readonlygp
+              readonly
             >
               <template slot="thumb-label" slot-scope="prop">
                 <span>{{ ((rating - 5) * 0.2).toFixed(1) }}</span>
