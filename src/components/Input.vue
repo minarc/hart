@@ -1,44 +1,55 @@
 <template>
-  <v-card class="elevation-1">
+  <v-card>
     <v-card-text>
-      <v-form ref="form">
-        <v-text-field
-          v-model="text"
-          :counter="max"
-          solo
-          autofocus
-          :rules="rules"
-          color="deep-purple accent-2"
-          @keyup.enter="submit()"
-          label="이곳에 문장을 입력하세요."
-          :disabled="linearProgressActive"
-          :loading="linearProgressActive"
-        ></v-text-field>
-      </v-form>
-      <v-slider
-        :value="rating"
-        thumb-label="always"
-        thumb-color="deep-purple accent-2"
-        thumb-size="30"
-        color="grey lighten-1"
-        always-dirty
-        min="0"
-        max="10"
-        step="1"
-        tick-size="1"
-        :tick-labels="['-1', '-.8', '-.6', '-.4', '-.2', '0', '.2', '.4', '.6', '.8', '+1']"
-        readonly
-      >
-        <template slot="thumb-label" slot-scope="prop">
-          <span>{{ ((rating - 5) * 0.2).toFixed(1) }}</span>
-        </template>
-        <v-icon slot="prepend" color="grey">mood_bad</v-icon>
-        <v-icon slot="append" color="grey">mood</v-icon>
-      </v-slider>
+      <v-layout row justify-center>
+        <v-flex xs11>
+          <v-form ref="form">
+            <v-text-field
+              v-model="text"
+              :counter="max"
+              solo
+              autofocus
+              :rules="rules"
+              color="deep-purple accent-2"
+              @keyup.enter="submit()"
+              label="이곳에 문장을 입력하세요."
+              :disabled="linearProgressActive"
+              :loading="linearProgressActive"
+            ></v-text-field>
+          </v-form>
+          <v-slider
+            :value="rating"
+            thumb-label="always"
+            thumb-color="deep-purple accent-2"
+            thumb-size="30"
+            color="grey lighten-1"
+            always-dirty
+            min="0"
+            max="10"
+            step="1"
+            tick-size="1"
+            :tick-labels="['-1', '-.8', '-.6', '-.4', '-.2', '0', '.2', '.4', '.6', '.8', '+1']"
+            readonly
+          >
+            <template slot="thumb-label" slot-scope="prop">
+              <span>{{ ((rating - 5) * 0.2).toFixed(1) }}</span>
+            </template>
+            <v-icon slot="prepend" color="grey">mood_bad</v-icon>
+            <v-icon slot="append" color="grey">mood</v-icon>
+          </v-slider>
+        </v-flex>
+      </v-layout>
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-chip small outline disabled label color="deep-purple">confidnece {{ confidence }}</v-chip>
+      <v-chip
+        v-if="confidence"
+        small
+        outline
+        disabled
+        label
+        color="deep-purple"
+      >confidnece {{ confidence }}</v-chip>
       <v-spacer></v-spacer>
     </v-card-actions>
     <v-alert

@@ -4,8 +4,8 @@
     <h2 class="display-3 font-weight-light deep-purple--text">HART</h2>
 
     <v-layout align-center justify-center row>
-      <v-flex xs12 sm9 md10 lg7>
-        <v-tabs v-model="model" color="deep-purple accent-4" grow dark icons-and-text>
+      <v-flex xs12 sm10 md10 lg7>
+        <v-tabs v-model="model" color="deep-purple accent-4" dark icons-and-text centered grow>
           <v-tabs-slider color="yellow darken-3"></v-tabs-slider>
           <v-tab>감성 분류
             <v-icon>fa-heart</v-icon>
@@ -20,8 +20,8 @@
             <v-icon>fa-robot</v-icon>
           </v-tab>
         </v-tabs>
-         <v-tabs-items v-model="model" vertical>
-          <v-tab-item transition="vertical">
+         <v-tabs-items v-model="model" vertical reverse>
+          <v-tab-item>
             <inputTab/>
           </v-tab-item>
           <v-tab-item lazy>
@@ -56,7 +56,7 @@ export default {
   },
   data () {
     return {
-      model: ''
+      model: null
     }
   },
   created () {}
