@@ -1,6 +1,6 @@
 <template>
   <v-app class="white">
-   <router-view/>
+    <router-view/>
     <v-footer height="auto" color="deep-purple">
       <v-layout justify-center row wrap>
         <v-btn
@@ -47,9 +47,9 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css?family=Nanum+Myeongjo');
+@import url("https://fonts.googleapis.com/css?family=Nanum+Myeongjo");
 #app {
-  font-family: "Avenir", 'Nanum Myeongjo', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", "Nanum Myeongjo", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

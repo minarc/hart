@@ -1,150 +1,134 @@
 <template>
-  <v-layout row wrap>
-    <v-flex xs12 sm12 md12>
-      <v-toolbar dark flat color="deep-purple accent-2">
-        <v-toolbar-title class="font-weight-medium">HART</v-toolbar-title>
-        <v-autocomplete
-          dense
-          :loading="searchLoading"
-          color="yellow darken-3"
-          :search-input.sync="search"
-          cache-items
-          flat
-          autofocus
-          browser-autocomple
-          :items="redisCache"
-          class="mx-3"
-          hide-no-data
-          hide-details
-          :disabled="searchLoading"
-          solo-inverted
-          :label="label"
-          @keyup.enter="submit(search)"
-        >
-          <template slot="item" slot-scope="{ item }">
-            <v-list-tile-avatar
-              size="30"
-              color="deep-purple"
-              class="headline font-weight-light white--text"
-            >{{ item.charAt(0)}}</v-list-tile-avatar>
-            <v-list-tile-content>
-              <v-list-tile-title v-text="item" @click="submit(item)"></v-list-tile-title>
-              <!-- <v-list-tile-sub-title v-text="item"></v-list-tile-sub-title> -->
-            </v-list-tile-content>
-            <v-list-tile-action>
-              <!-- <v-icon>person</v-icon> -->
-            </v-list-tile-action>
-          </template>
-        </v-autocomplete>
-        <v-menu bottom left>
-          <v-btn slot="activator" dark icon>
-            <v-icon>more_vert</v-icon>
-          </v-btn>
-          <v-list>
-            <v-list-tile v-for="(item, i) in menu" :key="i" @click="() => {}">
-              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-            </v-list-tile>
-          </v-list>
-        </v-menu>
-      </v-toolbar>
-    </v-flex>
-    <v-flex>
+  <div>
+    <v-toolbar dark flat color="deep-purple accent-2">
+      <v-toolbar-title class="font-weight-medium">HART</v-toolbar-title>
+      <v-autocomplete
+        dense
+        :loading="searchLoading"
+        color="yellow darken-3"
+        :search-input.sync="search"
+        cache-items
+        flat
+        browser-autocomple
+        :items="redisCache"
+        class="mx-3"
+        hide-no-data
+        hide-details
+        :disabled="searchLoading"
+        solo-inverted
+        :label="label"
+        @keyup.enter="submit(search)"
+      >
+        <template slot="item" slot-scope="{ item }">
+          <v-list-tile-avatar
+            size="30"
+            color="deep-purple"
+            class="headline font-weight-light white--text"
+          >{{ item.charAt(0)}}</v-list-tile-avatar>
+          <v-list-tile-content>
+            <v-list-tile-title v-text="item" @click="submit(item)"></v-list-tile-title>
+            <!-- <v-list-tile-sub-title v-text="item"></v-list-tile-sub-title> -->
+          </v-list-tile-content>
+          <v-list-tile-action>
+            <!-- <v-icon>person</v-icon> -->
+          </v-list-tile-action>
+        </template>
+      </v-autocomplete>
+      <v-menu bottom left>
+        <v-btn slot="activator" dark icon>
+          <v-icon>more_vert</v-icon>
+        </v-btn>
+        <v-list>
+          <v-list-tile v-for="(item, i) in menu" :key="i" @click="() => {}">
+            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
       <v-tabs
-        v-show="this.news.length > 0"
+        v-model="tab"
         slot="extension"
-        color="deep-purple accent-2"
-        dark
+        value="this.news.length > 0"
+        color="transparent"
         slider-color="yellow darken-2"
-        height="35"
       >
         <v-tab class="font-weight-light">News</v-tab>
         <v-tab class="font-weight-light">Blog</v-tab>
-        <v-tabs-items>
-          <v-tab-item>
-            <v-list
-              v-show="news.length > 0"
-              subheader
-              three-line
-              style="overflow-y: auto; height: 500;"
-            >
-              <v-subheader class="deep-purple darken-1">
-                <v-spacer></v-spacer>
-                <v-chip label small outline text-color="white">{{ averageRating }}</v-chip>
-                <v-chip v-if="averageRating < 2.5" label small color="red" text-color="white">부정적</v-chip>
-                <v-chip
-                  v-if="averageRating >= 4"
-                  label
-                  small
-                  color="green accent-4"
-                  text-color="white"
-                >긍정적</v-chip>
-                <v-spacer></v-spacer>
-              </v-subheader>
-              <template v-for="(item, index) in news">
-                <v-list-tile :key="item.title" avatar ripple :href="item.link">
-                  <v-list-tile-content>
-                    <v-list-tile-title v-html="item.title"></v-list-tile-title>
-                    <v-list-tile-sub-title class="font-weight-regular" v-html="item.description"></v-list-tile-sub-title>
-                  </v-list-tile-content>
-
-                  <v-list-tile-action>
-                    <v-list-tile-action-text>{{ item.rating }}</v-list-tile-action-text>
-                    <v-icon v-if="item.rating < 8" color="red lighten-1">mood_bad</v-icon>
-                    <v-icon v-else color="green darken-1">mood</v-icon>
-                  </v-list-tile-action>
-                </v-list-tile>
-                <v-divider v-if="index + 1 < news.length" :key="index"></v-divider>
-              </template>
-            </v-list>
-          </v-tab-item>
-          <v-tab-item>
-            <v-list
-              v-show="news.length > 0"
-              subheader
-              two-line
-              style="overflow-y: auto; height: 500;"
-            >
-              <v-subheader class="deep-purple darken-1">
-                <v-spacer></v-spacer>
-                <v-chip label small outline text-color="white">{{ averageRatingBlog }}</v-chip>
-                <v-chip
-                  v-if="averageRatingBlog < 2.5"
-                  label
-                  small
-                  color="red"
-                  text-color="white"
-                >부정적</v-chip>
-                <v-chip
-                  v-if="averageRatingBlog >= 4"
-                  label
-                  small
-                  color="green accent-4"
-                  text-color="white"
-                >긍정적</v-chip>
-                <v-spacer></v-spacer>
-              </v-subheader>
-              <template v-for="(item, index) in blog">
-                <v-list-tile :key="item.title" avatar ripple :href="item.link">
-                  <v-list-tile-content>
-                    <v-list-tile-title v-html="item.title"></v-list-tile-title>
-                    <v-list-tile-sub-title v-html="item.description"></v-list-tile-sub-title>
-                    <v-list-tile-sub-title>{{item.postdate}}</v-list-tile-sub-title>
-                  </v-list-tile-content>
-
-                  <v-list-tile-action>
-                    <v-list-tile-action-text>{{ item.bloggername }}</v-list-tile-action-text>
-                    <v-icon v-if="item.rating < 8" color="red lighten-1">mood_bad</v-icon>
-                    <v-icon v-else color="green darken-1">mood</v-icon>
-                  </v-list-tile-action>
-                </v-list-tile>
-                <v-divider v-if="index + 1 < news.length" :key="index"></v-divider>
-              </template>
-            </v-list>
-          </v-tab-item>
-        </v-tabs-items>
       </v-tabs>
-    </v-flex>
-    <v-flex xs12 sm12 md12>
+    </v-toolbar>
+    <v-tabs-items v-model="tab">
+      <v-tab-item>
+        <v-list
+          v-show="news.length > 0"
+          subheader
+          three-line
+          style="overflow-y: auto; height: 500;"
+        >
+          <v-subheader class="deep-purple darken-1">
+            <v-spacer></v-spacer>
+            <v-chip label small outline text-color="white">{{ averageRating }}</v-chip>
+            <v-chip v-if="averageRating < 2.5" label small color="red" text-color="white">부정적</v-chip>
+            <v-chip
+              v-if="averageRating >= 4"
+              label
+              small
+              color="green accent-4"
+              text-color="white"
+            >긍정적</v-chip>
+            <v-spacer></v-spacer>
+          </v-subheader>
+          <template v-for="(item, index) in news">
+            <v-list-tile :key="item.title" avatar ripple :href="item.link">
+              <v-list-tile-content>
+                <v-list-tile-title v-html="item.title"></v-list-tile-title>
+                <v-list-tile-sub-title class="font-weight-regular" v-html="item.description"></v-list-tile-sub-title>
+              </v-list-tile-content>
+
+              <v-list-tile-action>
+                <v-list-tile-action-text>{{ item.rating }}</v-list-tile-action-text>
+                <v-icon v-if="item.rating < 8" color="red lighten-1">mood_bad</v-icon>
+                <v-icon v-else color="green darken-1">mood</v-icon>
+              </v-list-tile-action>
+            </v-list-tile>
+            <v-divider v-if="index + 1 < news.length" :key="index"></v-divider>
+          </template>
+        </v-list>
+      </v-tab-item>
+      <v-tab-item>
+        <v-list v-show="news.length > 0" subheader two-line style="overflow-y: auto; height: 500;">
+          <v-subheader class="deep-purple darken-1">
+            <v-spacer></v-spacer>
+            <v-chip label small outline text-color="white">{{ averageRatingBlog }}</v-chip>
+            <v-chip v-if="averageRatingBlog < 2.5" label small color="red" text-color="white">부정적</v-chip>
+            <v-chip
+              v-if="averageRatingBlog >= 4"
+              label
+              small
+              color="green accent-4"
+              text-color="white"
+            >긍정적</v-chip>
+            <v-spacer></v-spacer>
+          </v-subheader>
+          <template v-for="(item, index) in blog">
+            <v-list-tile :key="item.title" avatar ripple :href="item.link">
+              <v-list-tile-content>
+                <v-list-tile-title v-html="item.title"></v-list-tile-title>
+                <v-list-tile-sub-title v-html="item.description"></v-list-tile-sub-title>
+                <v-list-tile-sub-title>{{item.postdate}}</v-list-tile-sub-title>
+              </v-list-tile-content>
+
+              <v-list-tile-action>
+                <v-list-tile-action-text>{{ item.bloggername }}</v-list-tile-action-text>
+                <v-icon v-if="item.rating < 8" color="red lighten-1">mood_bad</v-icon>
+                <v-icon v-else color="green darken-1">mood</v-icon>
+              </v-list-tile-action>
+            </v-list-tile>
+            <v-divider v-if="index + 1 < news.length" :key="index"></v-divider>
+          </template>
+        </v-list>
+      </v-tab-item>
+    </v-tabs-items>
+
+    <v-flex xs12 sm12 md12 class="elevation-1">
       <v-chip
         outline
         small
@@ -154,7 +138,7 @@
         @click="submit(item.keyword)"
       >#{{item.keyword}}</v-chip>
     </v-flex>
-  </v-layout>
+  </div>
 </template>
 
 <script>
@@ -177,6 +161,7 @@ export default {
       search: null,
       select: null,
       redisCache: [],
+      tab: '',
       news: [],
       label: '',
       blog: [],

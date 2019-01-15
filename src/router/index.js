@@ -6,7 +6,7 @@ import Document from '@/components/Document'
 
 Vue.use(Router)
 Vue.use(Vuetify, {
-  iconfont: 'mdi'
+  iconfont: 'fa4'
 })
 
 export default new Router({
