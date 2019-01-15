@@ -161,7 +161,7 @@ export default {
       search: null,
       select: null,
       redisCache: [],
-      tab: '',
+      tab: null,
       news: [],
       label: '',
       blog: [],

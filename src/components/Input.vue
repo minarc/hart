@@ -11,7 +11,7 @@
               autofocus
               :rules="rules"
               color="deep-purple accent-2"
-              @keyup.enter="submit()"
+              @keyup.enter="submit(text)"
               label="이곳에 문장을 입력하세요."
               :disabled="linearProgressActive"
               :loading="linearProgressActive"
@@ -102,7 +102,7 @@ export default {
     validateField () {
       return this.$refs.form.validate()
     },
-    submit (alertMessage, error) {
+    submit (alertMessage) {
       if (!this.validateField()) {
         return
       }
