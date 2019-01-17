@@ -85,7 +85,7 @@
 
               <v-list-tile-action>
                 <v-list-tile-action-text>{{ item.rating }}</v-list-tile-action-text>
-                <v-icon v-if="item.rating < 8" color="red lighten-1">mood_bad</v-icon>
+                <v-icon v-if="item.rating < 6" color="red lighten-1">mood_bad</v-icon>
                 <v-icon v-else color="green darken-1">mood</v-icon>
               </v-list-tile-action>
             </v-list-tile>

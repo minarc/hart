@@ -13,10 +13,10 @@
           <v-tab>감성 검색
             <v-icon>fa-search</v-icon>
           </v-tab>
-          <v-tab>인물
+          <v-tab>인물 (준비중)
             <v-icon>fa-user</v-icon>
           </v-tab>
-          <v-tab>AI
+          <v-tab>AI (준비중)
             <v-icon>fa-robot</v-icon>
           </v-tab>
         </v-tabs>
