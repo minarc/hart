@@ -1,5 +1,4 @@
-[![Build Status](https://travis-ci.org/smike9/hart-demo.svg?branch=master)](https://travis-ci.org/smike9/hart-demo)
-[![Assertible status](https://assertible.com/apis/8897a52c-cf6d-4dc5-b94c-cf05bb9a24b4/status?api_token=3PWgzeBHXXEy8hN6)](https://assertible.com/dashboard#/services/8897a52c-cf6d-4dc5-b94c-cf05bb9a24b4/results)
+<img width="460" src="https://user-images.githubusercontent.com/11865340/121864194-987a9d80-cd37-11eb-9fb6-d3d22263b796.jpg">
 
 # Hart REST API DEMO
 
