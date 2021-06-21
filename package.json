@@ -24,7 +24,7 @@
     "morgan": "^1.9.1",
     "node-cmd": "^3.0.0",
     "prettier-eslint": "^8.8.2",
-    "redis": "^2.8.0",
+    "redis": "^3.1.1",
     "request": "^2.88.0",
     "twitter": "^1.7.1",
     "vue": "^2.5.21",
