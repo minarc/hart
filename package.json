@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "animate.css": "^3.7.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "chart.js": "^2.7.3",
     "express": "^4.16.4",
     "http-proxy-middleware": "^0.19.1",
